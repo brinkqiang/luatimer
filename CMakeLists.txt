@@ -22,6 +22,5 @@ MESSAGE(STATUS "VERSION: ${LUATIMER_VERSION}")
 ADD_DEFINITIONS(-DUSE_LUATIMER)
 ADD_DEFINITIONS(-DLUA_COMPAT_MODULE -DLUA_COMPAT_APIINTCASTS)
 
-ModuleImport("dmtimer" "thirdparty/dmtimer")
-LuaModuleImport("${LUA_MODULE}" "luatimer" "src/luatimer" "dmtimer")
+LuaModuleImport("${LUA_MODULE}" "luatimer" "src/luatimer" "")
 

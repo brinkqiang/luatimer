@@ -24,15 +24,17 @@
 
 #include "sol.hpp"
 #include <string>
+#include "dmtimermodule.h"
 
-class Cluatimer
+class Cluatimer : public CDMTimerNode
 {
 public:
     Cluatimer(sol::this_state L);
+    virtual ~Cluatimer(){}
 
-    void OPrint(const std::string& strInfo);
-
-    static void GPrint(const std::string& strInfo);
+    void settimer(uint64_t qwIDEvent,  uint64_t qwElapse, sol::function f, sol::variadic_args va);
+    
+    void run();
 private:
     sol::state_view m_oState;
 };

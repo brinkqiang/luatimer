@@ -26,6 +26,7 @@
 #include "dmos.h"
 #include "dmlist.h"
 #include "dmany.h"
+#include "sol.hpp"
 
 #define TVN_BITS 6
 #define TVR_BITS 8
@@ -55,6 +56,9 @@ class ITimerSink {
     virtual void OnTimer( uint64_t qwIDEvent, dm::any& oAny ) {
         OnTimer( qwIDEvent );
     }
+    virtual void OnTimer( uint64_t qwIDEvent, sol::function f, sol::variadic_args va ) {
+        f(va);
+    }
 };
 
 inline ITimerSink::~ITimerSink() {
@@ -78,6 +82,7 @@ class CDMTimerElement {
         m_poTimerSink = NULL;
         m_bErased = false;
         m_bExact = false;
+        m_bUseLua = false;
     }
 
     inline void Kill() {
@@ -97,6 +102,10 @@ class CDMTimerElement {
 
     bool                m_bErased;
     bool                m_bExact;
+
+    bool                m_bUseLua;
+    sol::function       m_fFunction;
+    sol::variadic_args  m_vArgs;
 };
 
 #endif // __DMTIMERSINK_H_INCLUDE__

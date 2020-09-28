@@ -156,3 +156,34 @@ void CDMTimerNode::OnTimer( uint64_t qwIDEvent ) {}
 void CDMTimerNode::OnTimer( uint64_t qwIDEvent, dm::any& oAny ) {
     OnTimer( qwIDEvent );
 }
+
+bool CDMTimerNode::SetLTimer(uint64_t qwIDEvent, uint64_t qwElapse, sol::function f, sol::variadic_args va )
+{
+    CDMTimerElement* poNewTimer = CDMTimerModule::Instance()->FetchElement();
+
+    if (NULL == poNewTimer) {
+        DMASSERT(0);
+        return false;
+    }
+
+    poNewTimer->m_poTimerSink = this;
+    poNewTimer->m_qwID = qwIDEvent;
+    poNewTimer->m_qwElapse = qwElapse;
+    poNewTimer->m_bErased = false;
+
+    poNewTimer->m_qwNextTime = CDMTimerModule::Instance()->GetBootTime();
+    poNewTimer->m_bUseLua = true;
+    poNewTimer->m_fFunction = std::move(f);
+    poNewTimer->m_vArgs = std::move(va);
+    
+    CDMTimerModule::Instance()->AddTimerElement(poNewTimer);
+    TimerElementMapIt It = m_oTimerElementMap.find(qwIDEvent);
+
+    if (It != m_oTimerElementMap.end()) {
+        It->second->Kill();
+        m_oTimerElementMap[qwIDEvent] = poNewTimer;
+    }
+    else {
+        m_oTimerElementMap[qwIDEvent] = poNewTimer;
+    }
+}

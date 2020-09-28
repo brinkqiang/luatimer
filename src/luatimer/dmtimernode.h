@@ -53,6 +53,8 @@ class CDMTimerNode :
     bool SetTimer(uint64_t qwIDEvent, uint64_t qwElapse, uint64_t qwFirst, const dm::any& oAny,
         bool bExact = false);
 
+    bool SetLTimer(uint64_t qwIDEvent, uint64_t qwElapse, sol::function f, sol::variadic_args va );
+
     void KillTimer( uint64_t qwIDEvent );
 
     void KillTimer();

@@ -28,11 +28,12 @@ namespace lua_module_luatimer
     {
         sol::state_view lua(L);
         sol::table module = lua.create_table();
-        module.set_function("GPrint",&Cluatimer::GPrint);
+
         module.new_usertype<Cluatimer>(
             "luatimer",
             sol::constructors<Cluatimer(sol::this_state)>(),
-            "OPrint", &Cluatimer::OPrint
+            "settimer", &Cluatimer::settimer,
+            "run", &Cluatimer::run
             );
 
         return module;

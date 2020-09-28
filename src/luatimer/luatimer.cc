@@ -28,12 +28,12 @@ Cluatimer::Cluatimer(sol::this_state L)
 
 }
 
-void Cluatimer::OPrint(const std::string& strInfo)
+void Cluatimer::settimer(uint64_t qwIDEvent,  uint64_t qwElapse, sol::function f, sol::variadic_args va )
 {
-    m_oState["print"].call(strInfo);
+    SetLTimer(qwIDEvent, qwElapse, f, va );
 }
 
-void Cluatimer::GPrint(const std::string& strInfo)
+void Cluatimer::run()
 {
-    std::cout << strInfo << std::endl;
+    CDMTimerModule::Instance()->Run();
 }

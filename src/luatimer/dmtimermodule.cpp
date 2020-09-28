@@ -161,7 +161,16 @@ int CDMTimerModule::Run() {
             }
 
             SetTimerInfo(timer->m_qwID, typeid(*(timer->m_poTimerSink)).name());
-            timer->m_poTimerSink->OnTimer( timer->m_qwID, timer->m_oAny );
+
+            if (timer->m_bUseLua)
+            {
+                timer->m_poTimerSink->OnTimer(timer->m_qwID, timer->m_fFunction, timer->m_vArgs);
+            }
+            else
+            {
+                timer->m_poTimerSink->OnTimer( timer->m_qwID, timer->m_oAny );
+            }
+
             DelTimerInfo();
             ++nEvents;
 
