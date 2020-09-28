@@ -1,0 +1,37 @@
+cmake_minimum_required(VERSION 3.2)
+
+PROJECT(dmtimer)
+
+LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+INCLUDE(cmake/ModuleImport.cmake)
+INCLUDE(cmake/ModuleCompileOptions.cmake)
+ModuleSetCompileOptions()
+
+SET(DMTIMER_VERSION_MAJOR "1")
+SET(DMTIMER_VERSION_MINOR "0")
+SET(DMTIMER_VERSION_PATCH "1")
+SET(DMTIMER_VERSION "${DMTIMER_VERSION_MAJOR}.${DMTIMER_VERSION_MINOR}.${DMTIMER_VERSION_PATCH}")
+
+MESSAGE(STATUS "VERSION: ${DMTIMER_VERSION}")
+
+OPTION(USE_DMTIMER "use dmtimer" OFF)
+
+LibImport("dmtimer" "src")
+ExeImport("test" "dmtimer")
+
+#ADD_CUSTOM_COMMAND(
+#TARGET dmtimertest
+#PRE_BUILD
+#COMMAND ${CMAKE_COMMAND} -E copy_if_different
+#${CMAKE_CURRENT_SOURCE_DIR}/config/test.csv
+#$<TARGET_FILE_DIR:dmtimertest>
+#)
+
+#INSTALL(DIRECTORY include/ DESTINATION include)
+#INSTALL(TARGETS dmtimer
+#        RUNTIME DESTINATION bin
+#        LIBRARY DESTINATION lib
+#        ARCHIVE DESTINATION lib)
+
+#SET(DMTIMER_LIBS "dmtimer")
+#MARK_AS_ADVANCED(${DMTIMER_LIBS})
