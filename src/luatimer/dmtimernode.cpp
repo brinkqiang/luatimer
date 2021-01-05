@@ -218,4 +218,6 @@ bool CDMTimerNode::SetLTimer(uint64_t qwIDEvent, uint64_t qwElapse,
     {
         m_oTimerElementMap[qwIDEvent] = poNewTimer;
     }
+
+    return true;
 }

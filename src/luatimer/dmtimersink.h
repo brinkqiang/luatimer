@@ -63,7 +63,7 @@ public:
     virtual void OnTimer( uint64_t qwIDEvent, sol::main_protected_function f,
                           sol::variadic_args va )
     {
-        f(va);
+        f.call(qwIDEvent, va);
     }
 };
 
