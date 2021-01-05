@@ -56,7 +56,7 @@ class CDMRapidPool {
     }
 
     ~CDMRapidPool() {
-        assert( IsFull() );
+        //assert( IsFull() );
     }
 
     inline OBJTYPE*  FetchObj() {
