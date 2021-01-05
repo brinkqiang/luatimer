@@ -8,20 +8,20 @@ function main_idle()
 
 end
 
-timer:settimer(0, 1, function(test)
+timer:settimer(0, 1, function()
     main_idle()
 end
 )
 
-timer:settimer(1, 1000, function(test)
+timer:settimer(1, 1000, function()
         count=count+1;
-        print("hello wolrd " .. count .. test);
+        print("hello wolrd " .. count);
         if count >= 10 then
             timer:killtimer(1);
             timer:killall();
             timer:stop();
         end
-    end, 10
+    end
 )
 
 timer:run()
