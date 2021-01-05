@@ -23,17 +23,58 @@
 #include<iostream>
 
 Cluatimer::Cluatimer(sol::this_state L)
-: m_oState(L)
+    : m_oState(L), m_bStop(false)
 {
 
 }
 
-void Cluatimer::settimer(uint64_t qwIDEvent,  uint64_t qwElapse, sol::function f, sol::variadic_args va )
+void Cluatimer::settimer(uint64_t qwIDEvent,  uint64_t qwElapse,
+                         sol::function f, sol::variadic_args va )
 {
     SetLTimer(qwIDEvent, qwElapse, f, va );
 }
 
+void Cluatimer::killtimer(uint64_t qwIDEvent)
+{
+    KillTimer(qwIDEvent);
+}
+
+void Cluatimer::killall()
+{
+    KillTimer();
+}
+
+void Cluatimer::stop()
+{
+    m_bStop = true;
+
+    KillTimer();
+}
+
 void Cluatimer::run()
 {
+    int nEvent = 0;
+    bool bBusy = false;
+
+    while (!m_bStop)
+    {
+        bBusy = false;
+
+        if (CDMTimerModule::Instance()->Run())
+        {
+            bBusy = true;
+        }
+
+        if (!bBusy)
+        {
+            SleepMs(1);
+        }
+    }
+
     CDMTimerModule::Instance()->Run();
+}
+
+int Cluatimer::poll()
+{
+    return CDMTimerModule::Instance()->Run();
 }

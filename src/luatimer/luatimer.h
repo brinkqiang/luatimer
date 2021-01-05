@@ -24,19 +24,26 @@
 
 #include "sol.hpp"
 #include <string>
+#include <atomic>
 #include "dmtimermodule.h"
 
 class Cluatimer : public CDMTimerNode
 {
 public:
     Cluatimer(sol::this_state L);
-    virtual ~Cluatimer(){}
+    virtual ~Cluatimer() {}
 
-    void settimer(uint64_t qwIDEvent,  uint64_t qwElapse, sol::function f, sol::variadic_args va);
-    
-    void run();
+    void    settimer(uint64_t qwIDEvent,  uint64_t qwElapse, sol::function f,
+                     sol::variadic_args va);
+    void    killtimer(uint64_t qwIDEvent);
+    void    killall();
+
+    void    stop();
+    void    run();
+    int     poll();
 private:
     sol::state_view m_oState;
+    std::atomic_bool m_bStop;
 };
 
 #endif // __LUATIMER_H__

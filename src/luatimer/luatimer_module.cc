@@ -24,20 +24,22 @@
 
 namespace lua_module_luatimer
 {
-    static sol::table require_api(sol::this_state L)
-    {
-        sol::state_view lua(L);
-        sol::table module = lua.create_table();
+static sol::table require_api(sol::this_state L)
+{
+    sol::state_view lua(L);
+    sol::table module = lua.create_table();
 
-        module.new_usertype<Cluatimer>(
-            "luatimer",
-            sol::constructors<Cluatimer(sol::this_state)>(),
-            "settimer", &Cluatimer::settimer,
-            "run", &Cluatimer::run
-            );
+    module.new_usertype<Cluatimer>(
+        "luatimer",
+        sol::constructors<Cluatimer(sol::this_state)>(),
+        "settimer", &Cluatimer::settimer,
+        "run", &Cluatimer::run,
+        "poll", &Cluatimer::poll,
+        "stop", &Cluatimer::stop
+    );
 
-        return module;
-    }    
+    return module;
+}
 }
 
 LUA_API int luaopen_luatimer(lua_State* L)
