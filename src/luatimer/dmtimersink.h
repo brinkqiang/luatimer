@@ -41,39 +41,50 @@
 #define DM_MAGIC_USED       (0xcc)
 #define DM_MAGIC_UNUSED     (0xcd)
 
-typedef struct tvec {
+typedef struct tvec
+{
     struct list_head vec[TVN_SIZE];
 } TVec;
 
-typedef struct tvec_root {
+typedef struct tvec_root
+{
     struct list_head vec[TVR_SIZE];
 } TVec_Root;
 
-class ITimerSink {
-  public:
+class ITimerSink
+{
+public:
     virtual ~ITimerSink() = 0;
     virtual void OnTimer( uint64_t qwIDEvent ) = 0;
-    virtual void OnTimer( uint64_t qwIDEvent, dm::any& oAny ) {
+    virtual void OnTimer( uint64_t qwIDEvent, dm::any& oAny )
+    {
         OnTimer( qwIDEvent );
     }
-    virtual void OnTimer( uint64_t qwIDEvent, sol::function f, sol::variadic_args va ) {
+    virtual void OnTimer( uint64_t qwIDEvent, sol::main_protected_function f,
+                          sol::variadic_args va )
+    {
         f(va);
     }
 };
 
-inline ITimerSink::~ITimerSink() {
+inline ITimerSink::~ITimerSink()
+{
 }
 
-class CDMTimerElement {
-  public:
-    CDMTimerElement() {
+class CDMTimerElement
+{
+public:
+    CDMTimerElement()
+    {
         Reset();
     }
-    ~CDMTimerElement() {
+    ~CDMTimerElement()
+    {
         Reset();
     }
 
-    inline void Reset() {
+    inline void Reset()
+    {
         m_stEntry.next = NULL;
         m_stEntry.prev = NULL;
         m_qwNextTime = 0;
@@ -85,11 +96,12 @@ class CDMTimerElement {
         m_bUseLua = false;
     }
 
-    inline void Kill() {
+    inline void Kill()
+    {
         m_bErased = true;
     }
 
-  public:
+public:
     struct list_head    m_stEntry;
 
     uint64_t  m_qwNextTime;
@@ -104,7 +116,7 @@ class CDMTimerElement {
     bool                m_bExact;
 
     bool                m_bUseLua;
-    sol::function       m_fFunction;
+    sol::main_protected_function m_fFunction;
     sol::variadic_args  m_vArgs;
 };
 

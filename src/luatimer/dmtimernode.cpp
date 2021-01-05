@@ -4,16 +4,20 @@
 
 CDMTimerNode::CDMTimerNode() {}
 
-CDMTimerNode::~CDMTimerNode() {
+CDMTimerNode::~CDMTimerNode()
+{
     Reset();
 }
 
-CDMTimerNode::CDMTimerNode( const CDMTimerNode& oNode ) {
+CDMTimerNode::CDMTimerNode( const CDMTimerNode& oNode )
+{
     CopyFrom( oNode );
 }
 
-CDMTimerNode& CDMTimerNode::operator=( const CDMTimerNode& oNode ) {
-    if ( this != &oNode ) {
+CDMTimerNode& CDMTimerNode::operator=( const CDMTimerNode& oNode )
+{
+    if ( this != &oNode )
+    {
         Reset();
         CopyFrom( oNode );
     }
@@ -21,16 +25,20 @@ CDMTimerNode& CDMTimerNode::operator=( const CDMTimerNode& oNode ) {
     return *this;
 }
 
-void CDMTimerNode::Reset() {
+void CDMTimerNode::Reset()
+{
     KillTimer();
 }
 
-void CDMTimerNode::CopyFrom( const CDMTimerNode& oNode ) {
+void CDMTimerNode::CopyFrom( const CDMTimerNode& oNode )
+{
     for ( TimerElementMapCIt It = oNode.m_oTimerElementMap.begin();
-            It != oNode.m_oTimerElementMap.end(); ++It ) {
+            It != oNode.m_oTimerElementMap.end(); ++It )
+    {
         CDMTimerElement* poNewTimer = CDMTimerModule::Instance()->FetchElement();
 
-        if ( NULL == poNewTimer ) {
+        if ( NULL == poNewTimer )
+        {
             DMASSERT( 0 );
             continue;
         }
@@ -41,37 +49,44 @@ void CDMTimerNode::CopyFrom( const CDMTimerNode& oNode ) {
         uint64_t qwIDEvent = poNewTimer->m_qwID;
         TimerElementMapIt It2 = m_oTimerElementMap.find( qwIDEvent );
 
-        if ( It2 != m_oTimerElementMap.end() ) {
+        if ( It2 != m_oTimerElementMap.end() )
+        {
             It2->second->Kill();
             m_oTimerElementMap[qwIDEvent] = poNewTimer;
         }
-        else {
+        else
+        {
             m_oTimerElementMap[qwIDEvent] = poNewTimer;
         }
     }
 }
 
-bool CDMTimerNode::SetTimer( uint64_t qwIDEvent, uint64_t qwElapse ) {
+bool CDMTimerNode::SetTimer( uint64_t qwIDEvent, uint64_t qwElapse )
+{
     return SetTimer(qwIDEvent, qwElapse, qwElapse, dm::any(), false);
 }
 
 bool CDMTimerNode::SetTimer( uint64_t qwIDEvent,
                              uint64_t qwElapse, const dm::any& oAny,
-                             bool bExact ) {
+                             bool bExact )
+{
     return SetTimer(qwIDEvent, qwElapse, qwElapse, oAny, bExact);
 }
 
-bool CDMTimerNode::SetTimer(uint64_t qwIDEvent, uint64_t qwElapse, uint64_t qwRemain)
+bool CDMTimerNode::SetTimer(uint64_t qwIDEvent, uint64_t qwElapse,
+                            uint64_t qwRemain)
 {
     return SetTimer(qwIDEvent, qwElapse, qwRemain, dm::any(), false);
 }
 
-bool CDMTimerNode::SetTimer(uint64_t qwIDEvent, uint64_t qwElapse, uint64_t qwFirst, const dm::any& oAny,
-    bool bExact)
+bool CDMTimerNode::SetTimer(uint64_t qwIDEvent, uint64_t qwElapse,
+                            uint64_t qwFirst, const dm::any& oAny,
+                            bool bExact)
 {
     CDMTimerElement* poNewTimer = CDMTimerModule::Instance()->FetchElement();
 
-    if (NULL == poNewTimer) {
+    if (NULL == poNewTimer)
+    {
         DMASSERT(0);
         return false;
     }
@@ -86,21 +101,25 @@ bool CDMTimerNode::SetTimer(uint64_t qwIDEvent, uint64_t qwElapse, uint64_t qwFi
     CDMTimerModule::Instance()->AddTimerElement(poNewTimer);
     TimerElementMapIt It = m_oTimerElementMap.find(qwIDEvent);
 
-    if (It != m_oTimerElementMap.end()) {
+    if (It != m_oTimerElementMap.end())
+    {
         It->second->Kill();
         m_oTimerElementMap[qwIDEvent] = poNewTimer;
     }
-    else {
+    else
+    {
         m_oTimerElementMap[qwIDEvent] = poNewTimer;
     }
 
     return true;
 }
 
-void CDMTimerNode::KillTimer( uint64_t qwIDEvent ) {
+void CDMTimerNode::KillTimer( uint64_t qwIDEvent )
+{
     TimerElementMapIt It = m_oTimerElementMap.find( qwIDEvent );
 
-    if ( It == m_oTimerElementMap.end() ) {
+    if ( It == m_oTimerElementMap.end() )
+    {
         return;
     }
 
@@ -108,19 +127,23 @@ void CDMTimerNode::KillTimer( uint64_t qwIDEvent ) {
     m_oTimerElementMap.erase( It );
 }
 
-void CDMTimerNode::KillTimer() {
+void CDMTimerNode::KillTimer()
+{
     for ( TimerElementMapIt It = m_oTimerElementMap.begin();
-            It != m_oTimerElementMap.end(); ++It ) {
+            It != m_oTimerElementMap.end(); ++It )
+    {
         It->second->Kill();
     }
 
     m_oTimerElementMap.clear();
 }
 
-uint64_t CDMTimerNode::GetTimerElapse( uint64_t qwIDEvent ) {
+uint64_t CDMTimerNode::GetTimerElapse( uint64_t qwIDEvent )
+{
     TimerElementMapIt It = m_oTimerElementMap.find( qwIDEvent );
 
-    if ( It == m_oTimerElementMap.end() ) {
+    if ( It == m_oTimerElementMap.end() )
+    {
         return 0;
     }
 
@@ -129,10 +152,12 @@ uint64_t CDMTimerNode::GetTimerElapse( uint64_t qwIDEvent ) {
     return qwBootTime > qwStartTime ? ( qwBootTime - qwStartTime ) : 0;
 }
 
-uint64_t CDMTimerNode::GetTimerRemain( uint64_t qwIDEvent ) {
+uint64_t CDMTimerNode::GetTimerRemain( uint64_t qwIDEvent )
+{
     TimerElementMapIt It = m_oTimerElementMap.find( qwIDEvent );
 
-    if ( It == m_oTimerElementMap.end() ) {
+    if ( It == m_oTimerElementMap.end() )
+    {
         return 0;
     }
 
@@ -141,10 +166,12 @@ uint64_t CDMTimerNode::GetTimerRemain( uint64_t qwIDEvent ) {
     return qwNextTime > qwBootTime ? ( qwNextTime - qwBootTime ) : 0;
 }
 
-CDMTimerElement* CDMTimerNode::GetTimerElement( uint64_t qwIDEvent ) {
+CDMTimerElement* CDMTimerNode::GetTimerElement( uint64_t qwIDEvent )
+{
     TimerElementMapIt It = m_oTimerElementMap.find( qwIDEvent );
 
-    if ( It == m_oTimerElementMap.end() ) {
+    if ( It == m_oTimerElementMap.end() )
+    {
         return NULL;
     }
 
@@ -153,15 +180,18 @@ CDMTimerElement* CDMTimerNode::GetTimerElement( uint64_t qwIDEvent ) {
 
 void CDMTimerNode::OnTimer( uint64_t qwIDEvent ) {}
 
-void CDMTimerNode::OnTimer( uint64_t qwIDEvent, dm::any& oAny ) {
+void CDMTimerNode::OnTimer( uint64_t qwIDEvent, dm::any& oAny )
+{
     OnTimer( qwIDEvent );
 }
 
-bool CDMTimerNode::SetLTimer(uint64_t qwIDEvent, uint64_t qwElapse, sol::function f, sol::variadic_args va )
+bool CDMTimerNode::SetLTimer(uint64_t qwIDEvent, uint64_t qwElapse,
+                             sol::main_protected_function f, sol::variadic_args va )
 {
     CDMTimerElement* poNewTimer = CDMTimerModule::Instance()->FetchElement();
 
-    if (NULL == poNewTimer) {
+    if (NULL == poNewTimer)
+    {
         DMASSERT(0);
         return false;
     }
@@ -175,15 +205,17 @@ bool CDMTimerNode::SetLTimer(uint64_t qwIDEvent, uint64_t qwElapse, sol::functio
     poNewTimer->m_bUseLua = true;
     poNewTimer->m_fFunction = std::move(f);
     poNewTimer->m_vArgs = std::move(va);
-    
+
     CDMTimerModule::Instance()->AddTimerElement(poNewTimer);
     TimerElementMapIt It = m_oTimerElementMap.find(qwIDEvent);
 
-    if (It != m_oTimerElementMap.end()) {
+    if (It != m_oTimerElementMap.end())
+    {
         It->second->Kill();
         m_oTimerElementMap[qwIDEvent] = poNewTimer;
     }
-    else {
+    else
+    {
         m_oTimerElementMap[qwIDEvent] = poNewTimer;
     }
 }

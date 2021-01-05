@@ -29,7 +29,7 @@ Cluatimer::Cluatimer(sol::this_state L)
 }
 
 void Cluatimer::settimer(uint64_t qwIDEvent,  uint64_t qwElapse,
-                         sol::function f, sol::variadic_args va )
+                         sol::main_protected_function f, sol::variadic_args va )
 {
     SetLTimer(qwIDEvent, qwElapse, f, va );
 }
