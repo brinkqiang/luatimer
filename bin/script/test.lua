@@ -1,8 +1,8 @@
-local module = require("luatimer")
+local module = require("luatimer");
 
-local timer = module.luatimer.new()
-local count = 0
-local test = "this is test"
+local timer = module.luatimer.new();
+local count = 0;
+local test = "this is test";
 
 function main_idle()
     print("hello main_idle");
