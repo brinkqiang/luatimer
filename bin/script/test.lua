@@ -1,6 +1,6 @@
-local module = require("luatimer");
+local luatimer = require("luatimer");
 
-local timer = module.luatimer.new();
+local timer = luatimer.timer.new();
 local count = 0;
 local test = "this is test";
 

@@ -30,7 +30,7 @@ static sol::table require_api(sol::this_state L)
     sol::table module = lua.create_table();
 
     module.new_usertype<Cluatimer>(
-        "luatimer",
+        "timer",
         sol::constructors<Cluatimer(sol::this_state)>(),
         "settimer", &Cluatimer::settimer,
         "killtimer", &Cluatimer::killtimer,
