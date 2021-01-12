@@ -34,7 +34,7 @@ public:
     virtual ~Cluatimer() {}
 
     void    settimer(uint64_t qwIDEvent,  uint64_t qwElapse,
-                     sol::main_protected_function f, sol::variadic_args va);
+                     sol::main_protected_function f);
     void    killtimer(uint64_t qwIDEvent);
     void    killall();
 

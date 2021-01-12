@@ -60,11 +60,11 @@ public:
     {
         OnTimer( qwIDEvent );
     }
-    virtual void OnTimer( uint64_t qwIDEvent, sol::main_protected_function f,
-                          sol::variadic_args va )
+    virtual void OnTimer( uint64_t qwIDEvent, sol::main_protected_function f)
     {
         f(qwIDEvent);
     }
+
 };
 
 inline ITimerSink::~ITimerSink()
@@ -117,7 +117,7 @@ public:
 
     bool                m_bUseLua;
     sol::main_protected_function m_fFunction;
-    sol::variadic_args  m_vArgs;
+
 };
 
 #endif // __DMTIMERSINK_H_INCLUDE__

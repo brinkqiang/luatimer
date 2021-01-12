@@ -186,7 +186,7 @@ void CDMTimerNode::OnTimer( uint64_t qwIDEvent, dm::any& oAny )
 }
 
 bool CDMTimerNode::SetLTimer(uint64_t qwIDEvent, uint64_t qwElapse,
-                             sol::main_protected_function f, sol::variadic_args va )
+                             sol::main_protected_function f)
 {
     CDMTimerElement* poNewTimer = CDMTimerModule::Instance()->FetchElement();
 
@@ -204,7 +204,6 @@ bool CDMTimerNode::SetLTimer(uint64_t qwIDEvent, uint64_t qwElapse,
     poNewTimer->m_qwNextTime = CDMTimerModule::Instance()->GetBootTime();
     poNewTimer->m_bUseLua = true;
     poNewTimer->m_fFunction = std::move(f);
-    poNewTimer->m_vArgs = std::move(va);
 
     CDMTimerModule::Instance()->AddTimerElement(poNewTimer);
     TimerElementMapIt It = m_oTimerElementMap.find(qwIDEvent);

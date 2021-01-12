@@ -29,9 +29,9 @@ Cluatimer::Cluatimer(sol::this_state L)
 }
 
 void Cluatimer::settimer(uint64_t qwIDEvent,  uint64_t qwElapse,
-                         sol::main_protected_function f, sol::variadic_args va )
+                         sol::main_protected_function f)
 {
-    SetLTimer(qwIDEvent, qwElapse, f, va );
+    SetLTimer(qwIDEvent, qwElapse, f);
 }
 
 void Cluatimer::killtimer(uint64_t qwIDEvent)

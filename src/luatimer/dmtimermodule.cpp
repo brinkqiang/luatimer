@@ -193,8 +193,7 @@ int CDMTimerModule::Run()
 
             if (timer->m_bUseLua)
             {
-                timer->m_poTimerSink->OnTimer(timer->m_qwID, timer->m_fFunction,
-                                              timer->m_vArgs);
+                timer->m_poTimerSink->OnTimer(timer->m_qwID, timer->m_fFunction);
             }
             else
             {
