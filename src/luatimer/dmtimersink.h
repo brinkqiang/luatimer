@@ -94,6 +94,7 @@ public:
         m_bErased = false;
         m_bExact = false;
         m_bUseLua = false;
+        m_bOnce = false;
     }
 
     inline void Kill()
@@ -116,6 +117,7 @@ public:
     bool                m_bExact;
 
     bool                m_bUseLua;
+    bool                m_bOnce;
     sol::main_protected_function m_fFunction;
 
 };

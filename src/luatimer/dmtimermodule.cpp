@@ -209,6 +209,12 @@ int CDMTimerModule::Run()
                 continue;
             }
 
+            if ( timer->m_bOnce )
+            {
+                ReleaseElement( timer );
+                continue;
+            }
+
             timer->m_qwNextTime += timer->m_qwElapse;
 
             if ( !timer->m_bExact && m_qwCurTime >= timer->m_qwNextTime )

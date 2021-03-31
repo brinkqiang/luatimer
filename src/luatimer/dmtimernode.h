@@ -56,7 +56,7 @@ public:
                   bool bExact = false);
 
     bool SetLTimer(uint64_t qwIDEvent, uint64_t qwElapse,
-                   sol::main_protected_function f);
+                   sol::main_protected_function f, bool bOnce = false);
 
     void KillTimer( uint64_t qwIDEvent );
 

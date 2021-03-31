@@ -38,9 +38,13 @@ public:
     void    killtimer(uint64_t qwIDEvent);
     void    killall();
 
+    void    sleepms(uint64_t qwElapse, sol::main_protected_function f);
+
     void    stop();
     void    run();
     int     poll();
+
+    std::string gettime();
 private:
     sol::state_view m_oState;
     std::atomic_bool m_bStop;

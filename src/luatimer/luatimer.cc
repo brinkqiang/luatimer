@@ -20,7 +20,8 @@
 // SOFTWARE.
 
 #include "luatimer.h"
-#include<iostream>
+#include <iostream>
+#include "dmutil.h"
 
 Cluatimer::Cluatimer(sol::this_state L)
     : m_oState(L), m_bStop(false)
@@ -42,6 +43,16 @@ void Cluatimer::killtimer(uint64_t qwIDEvent)
 void Cluatimer::killall()
 {
     KillTimer();
+}
+
+void Cluatimer::sleepms(uint64_t qwElapse, sol::main_protected_function f)
+{
+    SetLTimer(0, qwElapse, f, true);
+}
+
+std::string Cluatimer::gettime()
+{
+    return DMFormatDateTime();
 }
 
 void Cluatimer::stop()

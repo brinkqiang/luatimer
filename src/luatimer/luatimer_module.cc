@@ -35,6 +35,8 @@ static sol::table require_api(sol::this_state L)
         "settimer", &Cluatimer::settimer,
         "killtimer", &Cluatimer::killtimer,
         "killall", &Cluatimer::killall,
+        "sleepms", &Cluatimer::sleepms,
+        "gettime", &Cluatimer::gettime,
         "run", &Cluatimer::run,
         "poll", &Cluatimer::poll,
         "stop", &Cluatimer::stop

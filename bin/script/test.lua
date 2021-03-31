@@ -1,6 +1,6 @@
 local module = require("luatimer");
 
-local timer = module.luatimer.new();
+local timer = module.timer.new();
 local count = 0;
 local test = "this is test";
 
@@ -14,7 +14,12 @@ timer:settimer(0, 1, function(id)
 end
 )
 
-timer:settimer(1, 1000, function(id, str, num)
+print(timer:gettime())
+
+timer:sleepms(2000, function()
+    print("sleepms 2000 " .. timer:gettime());
+
+    timer:settimer(1, 1000, function(id, str, num)
         count=count+1;
         print("hello wolrd " .. count);
         if count >= 10 then
@@ -22,7 +27,8 @@ timer:settimer(1, 1000, function(id, str, num)
             timer:killall();
             timer:stop();
         end
-    end
-)
+    end)
+end)
+
 
 timer:run();
