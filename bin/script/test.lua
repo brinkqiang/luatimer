@@ -14,7 +14,7 @@ timer:settimer(0, 1, function(id)
 end
 )
 
-timer:settimer(1, 1000, function(id)
+timer:settimer(1, 1000, function(id, str, num)
         count=count+1;
         print("hello wolrd " .. count);
         if count >= 10 then
