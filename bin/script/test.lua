@@ -16,6 +16,7 @@ end
 
 print(module.gettime())
 
+-- warning: sleepms bind IDEvent=0
 timer:sleepms(2000, function()
     print("sleepms 2000 " .. module.gettime());
 
