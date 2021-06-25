@@ -29,17 +29,18 @@ static sol::table require_api(sol::this_state L)
     sol::state_view lua(L);
     sol::table module = lua.create_table();
 
+    module.set_function("run",&Cluatimer::run);
+    module.set_function("poll", &Cluatimer::poll);
+    module.set_function("stop", &Cluatimer::stop);
+    module.set_function("gettime", &Cluatimer::gettime);
+
     module.new_usertype<Cluatimer>(
         "timer",
         sol::constructors<Cluatimer(sol::this_state)>(),
         "settimer", &Cluatimer::settimer,
         "killtimer", &Cluatimer::killtimer,
         "killall", &Cluatimer::killall,
-        "sleepms", &Cluatimer::sleepms,
-        "gettime", &Cluatimer::gettime,
-        "run", &Cluatimer::run,
-        "poll", &Cluatimer::poll,
-        "stop", &Cluatimer::stop
+        "sleepms", &Cluatimer::sleepms
     );
 
     return module;

@@ -23,8 +23,10 @@
 #include <iostream>
 #include "dmutil.h"
 
+std::atomic_bool Cluatimer::m_bStop = false;
+
 Cluatimer::Cluatimer(sol::this_state L)
-    : m_oState(L), m_bStop(false)
+    : m_oState(L)
 {
 
 }
@@ -58,8 +60,6 @@ std::string Cluatimer::gettime()
 void Cluatimer::stop()
 {
     m_bStop = true;
-
-    KillTimer();
 }
 
 void Cluatimer::run()

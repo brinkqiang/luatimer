@@ -38,16 +38,18 @@ public:
     void    killtimer(uint64_t qwIDEvent);
     void    killall();
 
+    // sleepms bind IDEvent=0
     void    sleepms(uint64_t qwElapse, sol::main_protected_function f);
 
-    void    stop();
-    void    run();
-    int     poll();
+    static void    stop();
 
-    std::string gettime();
+    static void    run();
+    static int     poll();
+
+    static std::string gettime();
 private:
     sol::state_view m_oState;
-    std::atomic_bool m_bStop;
+    static std::atomic_bool m_bStop;
 };
 
 #endif // __LUATIMER_H__
