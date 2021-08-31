@@ -10,16 +10,16 @@ Copyright (c) 2013-2018 brinkqiang (brink.qiang@gmail.com)
 [![GitHub forks](https://img.shields.io/github/forks/brinkqiang/luatimer.svg?label=Fork)](https://github.com/brinkqiang/luatimer)
 
 ## Build status
-| [Linux][lin-link] | [MacOSX][osx-link] | [Windows][win-link] |
+| [Linux][lin-link] | [Mac][mac-link] | [Windows][win-link] |
 | :---------------: | :----------------: | :-----------------: |
-| ![lin-badge]      | ![osx-badge]       | ![win-badge]        |
+| ![lin-badge]      | ![mac-badge]       | ![win-badge]        |
 
-[lin-badge]: https://travis-ci.org/brinkqiang/luatimer.svg?branch=master "Travis build status"
-[lin-link]:  https://travis-ci.org/brinkqiang/luatimer "Travis build status"
-[osx-badge]: https://travis-ci.org/brinkqiang/luatimer.svg?branch=master "Travis build status"
-[osx-link]:  https://travis-ci.org/brinkqiang/luatimer "Travis build status"
-[win-badge]: https://ci.appveyor.com/api/projects/status/github/brinkqiang/luatimer?branch=master&svg=true "AppVeyor build status"
-[win-link]:  https://ci.appveyor.com/project/brinkqiang/luatimer "AppVeyor build status"
+[lin-badge]: https://github.com/brinkqiang/luatimer/workflows/linux/badge.svg "linux build status"
+[lin-link]:  https://github.com/brinkqiang/luatimer/actions/workflows/linux.yml "linux build status"
+[mac-badge]: https://github.com/brinkqiang/luatimer/workflows/mac/badge.svg "mac build status"
+[mac-link]:  https://github.com/brinkqiang/luatimer/actions/workflows/mac.yml "mac build status"
+[win-badge]: https://github.com/brinkqiang/luatimer/workflows/win/badge.svg "win build status"
+[win-link]:  https://github.com/brinkqiang/luatimer/actions/workflows/win.yml "win build status"
 
 ## env
 install cmake
