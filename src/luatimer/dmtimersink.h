@@ -26,6 +26,8 @@
 #include "dmos.h"
 #include "dmlist.h"
 #include "dmany.h"
+#include <functional>
+#include <string>
 #include "sol.hpp"
 
 #define TVN_BITS 6
@@ -64,12 +66,14 @@ public:
     {
         f(qwIDEvent);
     }
-
 };
 
 inline ITimerSink::~ITimerSink()
 {
 }
+
+class CDMTimerNode;
+typedef std::function<void (uint64_t qwIDEvent)> DMFunction;
 
 class CDMTimerElement
 {
@@ -93,6 +97,8 @@ public:
         m_poTimerSink = NULL;
         m_bErased = false;
         m_bExact = false;
+        m_funTimer = nullptr;
+        m_strCron.clear();
         m_bUseLua = false;
         m_bOnce = false;
     }
@@ -110,16 +116,14 @@ public:
     uint64_t  m_qwID;
 
     ITimerSink*         m_poTimerSink;
-
+    DMFunction          m_funTimer;
     dm::any             m_oAny;
-
+    std::string         m_strCron;
     bool                m_bErased;
     bool                m_bExact;
-
     bool                m_bUseLua;
     bool                m_bOnce;
     sol::main_protected_function m_fFunction;
-
 };
 
 #endif // __DMTIMERSINK_H_INCLUDE__

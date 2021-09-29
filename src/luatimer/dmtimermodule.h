@@ -63,7 +63,8 @@ static inline int gettimeofday(struct timeval* tv, struct timezone* tz) {
 
     return 0;
 }
-
+#else
+#include <sys/time.h>
 #endif
 
 static inline uint32_t GetTickCount32() {
