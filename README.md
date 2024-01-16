@@ -63,6 +63,5 @@ end)
 module.run();
 ```
 ## Contacts
-[![Join the chat](https://badges.gitter.im/brinkqiang/luatimer/Lobby.svg)](https://gitter.im/brinkqiang/luatimer)
 
 ## Thanks
