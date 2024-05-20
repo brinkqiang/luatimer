@@ -29,6 +29,8 @@
 #include <functional>
 #include <string>
 
+#include <sol/sol.hpp>
+
 #define TVN_BITS 6
 #define TVR_BITS 8
 #define TVN_SIZE (1 << TVN_BITS)
@@ -61,6 +63,11 @@ public:
     {
         OnTimer(qwIDEvent);
     }
+	virtual void OnTimer(uint64_t qwIDEvent, sol::main_protected_function f)
+	{
+		f(qwIDEvent);
+	}
+
 };
 
 inline ITimerSink::~ITimerSink()
@@ -95,6 +102,9 @@ public:
         m_bPause = false;
         m_funTimer = nullptr;
         m_strCron.clear();
+
+		m_bUseLua = false;
+		m_bOnce = false;
     }
 
     inline void Kill()
@@ -131,6 +141,10 @@ public:
     bool                m_bErased;  // ÑÓ³ÙÉ¾³ý±ê¼Ç
     bool                m_bExact;   // ÊÇ·ñ¾«È·Æ¥Åä
     bool                m_bPause;   // ÊÇ·ñÔÝÍ£
+
+	bool                m_bUseLua;
+	bool                m_bOnce;
+	sol::main_protected_function m_fFunction;
 };
 
 #endif // __DMTIMERSINK_H_INCLUDE__

@@ -198,9 +198,20 @@ int CDMTimerModule::Run()
             //    continue;
             //}
 
+
             SetTimerInfo(timer->m_qwID, typeid(*(timer->m_poTimerSink)).name());
 
-            if (timer->m_funTimer)
+			if (timer->m_bUseLua)
+			{
+				timer->m_poTimerSink->OnTimer(timer->m_qwID, timer->m_fFunction);
+
+				if (timer->m_bOnce)
+				{
+					ReleaseElement(timer);
+					continue;
+				}
+			}
+            else if (timer->m_funTimer)
             {
                 timer->m_funTimer(timer->m_qwID);
             }

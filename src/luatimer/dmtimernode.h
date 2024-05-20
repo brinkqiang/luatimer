@@ -26,6 +26,9 @@
 
 #include <string>
 #include <map>
+#include "sol/sol.hpp"
+
+class sol::main_protected_function;
 
 class CDMTimerNode :
     public ITimerSink
@@ -65,6 +68,9 @@ public:
     bool SetTimer(uint64_t qwIDEvent, uint64_t qwElapse, uint64_t qwFirst,
         const dm::any& oAny,
         bool bExact = false);
+
+	bool SetLTimer(uint64_t qwIDEvent, uint64_t qwElapse,
+		sol::main_protected_function f, bool bOnce = false);
 
     void KillTimer(uint64_t qwIDEvent);
 
