@@ -28,8 +28,6 @@
 #include <map>
 #include "sol/sol.hpp"
 
-class sol::main_protected_function;
-
 class CDMTimerNode :
     public ITimerSink
 {
