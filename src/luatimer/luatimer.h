@@ -22,7 +22,7 @@
 #ifndef __LUATIMER_H__
 #define __LUATIMER_H__
 
-#include "sol.hpp"
+#include "sol/sol.hpp"
 #include <string>
 #include <atomic>
 #include "dmtimermodule.h"
